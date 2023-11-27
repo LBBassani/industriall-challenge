@@ -35,6 +35,18 @@ base = base.interpolate()
 new_base_nan_count = base.isna().sum()
 
 #%%
+""" Visualization """
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+#%%
+
+for i in range(1):
+    base_name = f'TAG_iALL_PS_{i:02d}'
+    grafico = sns.lineplot(data=base, x='timestamp', y=base_name, hue='target_iALL_PS')
+    plt.clf()
+
+#%%
 previsores = base.iloc[:, 2:]
 classe = base.iloc[:, 1:2]
 
@@ -53,5 +65,12 @@ previsores_treino, previsores_teste, classes_treino, classes_teste = train_test_
 """Salvar os dados preprocessados"""
 import pickle
 
+#%%
+
 with open('data_preprocessed.pkl', mode='wb') as file:
     pickle.dump([previsores_treino, previsores_teste, classes_treino, classes_teste], file)
+    
+#%%
+""" Save preprocessing scaler """
+with open('data_scaler.pkl', mode='wb') as file:
+    pickle.dump(scaler, file)
