@@ -35,16 +35,7 @@ base = base.interpolate()
 new_base_nan_count = base.isna().sum()
 
 #%%
-""" Visualization """
-import seaborn as sns
-import matplotlib.pyplot as plt
-
-#%%
-
-for i in range(1):
-    base_name = f'TAG_iALL_PS_{i:02d}'
-    grafico = sns.lineplot(data=base, x='timestamp', y=base_name, hue='target_iALL_PS')
-    plt.clf()
+base.to_csv('data/preprocessed_base.csv', encoding='utf-8', index=False)
 
 #%%
 previsores = base.iloc[:, 2:]
@@ -57,13 +48,18 @@ scaler = StandardScaler()
 previsores = scaler.fit_transform(previsores)
 
 #%%
+"""Salvar os dados preprocessados"""
+import pickle
+
+#%%
+with open('data/data_normalized.pkl', mode='wb') as file:
+    pickle.dump([previsores, classe], file)
+
+
+#%%
 """Separação entre base de treino e teste"""
 from sklearn.model_selection import train_test_split
 previsores_treino, previsores_teste, classes_treino, classes_teste = train_test_split(previsores, classe, test_size=0.25, random_state=0)
-
-#%%
-"""Salvar os dados preprocessados"""
-import pickle
 
 #%%
 
