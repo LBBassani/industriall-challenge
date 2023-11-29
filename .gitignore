@@ -161,4 +161,7 @@ cython_debug/
 
 # Personal files
 data
+plots
 *.url
+*.pdf
+*.png
