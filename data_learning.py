@@ -19,7 +19,7 @@ with open('data_preprocessed.pkl', 'rb') as file:
     
 #%%
 """ Decision Tree Classifier """
-print('Treinando o algorimto Decision Tree Classifier')
+print('Treinando o algoritmo Decision Tree Classifier')
 from sklearn.tree import DecisionTreeClassifier
 tree_classifier = DecisionTreeClassifier(criterion='entropy', random_state= 0)
 tree_classifier.fit(previsores_treino, classes_treino)
@@ -45,7 +45,7 @@ print(f'\tRelatório:\n{classification_report(classes_teste, previsoes)}')
 
 #%%
 """ Naive Bayes Classifier """
-print('Treinando o algorimto Naive Bayes Classifier')
+print('Treinando o algoritmo Naive Bayes Classifier')
 from sklearn.naive_bayes import GaussianNB
 naive_classifier = GaussianNB()
 naive_classifier.fit(previsores_treino, classes_treino)
@@ -72,7 +72,7 @@ print(f'\tRelatório:\n{classification_report(classes_teste, previsoes)}')
 #%%
 """ K-Nearest Neighbors Classifier """
 from sklearn.neighbors import KNeighborsClassifier
-print('Treinando o algorimto K-Nearest Neighbors Classifier')
+print('Treinando o algoritmo K-Nearest Neighbors Classifier')
 knn_classifier = KNeighborsClassifier(n_neighbors = 5, p = 2, metric = 'minkowski')
 knn_classifier.fit(previsores_treino, classes_treino)
 previsoes = knn_classifier.predict(previsores_teste)
@@ -96,7 +96,7 @@ print(f'\tRelatório:\n{classification_report(classes_teste, previsoes)}')
 
 #%%
 """ Logistic Regression Classifier """
-print('Treinando o algorimto Logistic Regression Classifier')
+print('Treinando o algoritmo Logistic Regression Classifier')
 from sklearn.linear_model import LogisticRegression
 logistic_classifier = LogisticRegression(random_state = 1)
 logistic_classifier.fit(previsores_treino, classes_treino)
@@ -124,7 +124,7 @@ print(classification_report(classes_teste, previsoes))
 
 #%%
 """ Suport Vector Machine """
-print('Treinando o algorimto Suport Vector Machine')
+print('Treinando o algoritmo Suport Vector Machine')
 from sklearn.svm import SVC
 svc_classifier = SVC(random_state = 1, C = 1.0 , kernel = 'linear')
 svc_classifier.fit(previsores_treino, classes_treino)
@@ -150,7 +150,7 @@ print(f'\tRelatório:\n{classification_report(classes_teste, previsoes)}')
 #%%
 """ Neural Network Classifier """
 from sklearn.neural_network import MLPClassifier # Multi Layer Perseptron
-print('Treinando o algorimto Neural Network Classifier')
+print('Treinando o algoritmo Neural Network Classifier')
 # n_hidden_layer_sizes = (n_entradas + n_saida) / 2
 # n_hidden_layer_sizes = (51 + 1) / 2 = 26
 neural_network_classifier = MLPClassifier(max_iter=200, verbose=False,
