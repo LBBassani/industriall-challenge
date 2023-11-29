@@ -12,26 +12,28 @@ from sklearn.metrics import classification_report
 
 #%%
 import pickle
-
+print('Preparando para treinamento dos modelos...')
+print('\tLendo dados de treino e teste do arquivo data_preprocessed.pkl')
 with open('data_preprocessed.pkl', 'rb') as file:
     previsores_treino, previsores_teste, classes_treino, classes_teste = pickle.load(file)
     
 #%%
-""" Decision Tree Classifier"""
+""" Decision Tree Classifier """
+print('Treinando o algorimto Decision Tree Classifier')
 from sklearn.tree import DecisionTreeClassifier
 tree_classifier = DecisionTreeClassifier(criterion='entropy', random_state= 0)
 tree_classifier.fit(previsores_treino, classes_treino)
 
 previsoes = tree_classifier.predict(previsores_teste)
 
-print(accuracy_score(classes_teste, previsoes))
+print(f'\tAcuracia: {accuracy_score(classes_teste, previsoes)}')
 # 0.9885802469135803
 
-print(confusion_matrix(classes_teste, previsoes)) 
+print(f'\tMatriz de confusão:\n {confusion_matrix(classes_teste, previsoes)}') 
 # [[ 3263,   322],
 #  [  307, 51188]]
 
-print(classification_report(classes_teste, previsoes))
+print(f'\tRelatório:\n{classification_report(classes_teste, previsoes)}')
 #               precision    recall  f1-score   support
 # 
 #      ANORMAL       0.91      0.91      0.91      3585
@@ -43,20 +45,21 @@ print(classification_report(classes_teste, previsoes))
 
 #%%
 """ Naive Bayes Classifier """
+print('Treinando o algorimto Naive Bayes Classifier')
 from sklearn.naive_bayes import GaussianNB
 naive_classifier = GaussianNB()
 naive_classifier.fit(previsores_treino, classes_treino)
 
 previsoes = naive_classifier.predict(previsores_teste)
 
-print(accuracy_score(classes_teste, previsoes))
+print(f'\tAcuracia: {accuracy_score(classes_teste, previsoes)}')
 # 0.9750544662309368
 
-print(confusion_matrix(classes_teste, previsoes))
+print(f'\tMatriz de confusão:\n {confusion_matrix(classes_teste, previsoes)}') 
 # [[ 3491    94]
 #  [ 1280 50215]]
 
-print(classification_report(classes_teste, previsoes))
+print(f'\tRelatório:\n{classification_report(classes_teste, previsoes)}')
 #               precision    recall  f1-score   support
 #
 #      ANORMAL       0.73      0.97      0.84      3585
@@ -67,20 +70,21 @@ print(classification_report(classes_teste, previsoes))
 # weighted avg       0.98      0.98      0.98     55080
 
 #%%
-""" K-Nearest-Neighbors Classifier """
+""" K-Nearest Neighbors Classifier """
 from sklearn.neighbors import KNeighborsClassifier
+print('Treinando o algorimto K-Nearest Neighbors Classifier')
 knn_classifier = KNeighborsClassifier(n_neighbors = 5, p = 2, metric = 'minkowski')
 knn_classifier.fit(previsores_treino, classes_treino)
 previsoes = knn_classifier.predict(previsores_teste)
 
-print(accuracy_score(classes_teste, previsoes))
+print(f'\tAcuracia: {accuracy_score(classes_teste, previsoes)}')
 # 0.985039941902687
 
-print(confusion_matrix(classes_teste, previsoes))
+print(f'\tMatriz de confusão:\n {confusion_matrix(classes_teste, previsoes)}') 
 # [[ 2964   621]
 #  [  203 51292]]
 
-print(classification_report(classes_teste, previsoes))
+print(f'\tRelatório:\n{classification_report(classes_teste, previsoes)}')
 #               precision    recall  f1-score   support
 #
 #      ANORMAL       0.94      0.83      0.88      3585
@@ -92,18 +96,22 @@ print(classification_report(classes_teste, previsoes))
 
 #%%
 """ Logistic Regression Classifier """
+print('Treinando o algorimto Logistic Regression Classifier')
 from sklearn.linear_model import LogisticRegression
 logistic_classifier = LogisticRegression(random_state = 1)
 logistic_classifier.fit(previsores_treino, classes_treino)
 previsoes = logistic_classifier.predict(previsores_teste)
 
+print(f'\tAcuracia: {accuracy_score(classes_teste, previsoes)}')
 print(accuracy_score(classes_teste, previsoes))
 # 0.9911401597676107
 
+print(f'\tMatriz de confusão:\n {confusion_matrix(classes_teste, previsoes)}') 
 print(confusion_matrix(classes_teste, previsoes))
 # [[ 3344   241]
 #  [  247 51248]]
 
+print(f'\tRelatório:\n{classification_report(classes_teste, previsoes)}')
 print(classification_report(classes_teste, previsoes))
 #               precision    recall  f1-score   support
 #
@@ -116,19 +124,20 @@ print(classification_report(classes_teste, previsoes))
 
 #%%
 """ Suport Vector Machine """
+print('Treinando o algorimto Suport Vector Machine')
 from sklearn.svm import SVC
 svc_classifier = SVC(random_state = 1, C = 1.0 , kernel = 'linear')
 svc_classifier.fit(previsores_treino, classes_treino)
 previsoes = svc_classifier.predict(previsores_teste)
 
-print(accuracy_score(classes_teste, previsoes))
+print(f'\tAcuracia: {accuracy_score(classes_teste, previsoes)}')
 # 0.9920116194625999
 
-print(confusion_matrix(classes_teste, previsoes))
+print(f'\tMatriz de confusão:\n {confusion_matrix(classes_teste, previsoes)}')
 # [[ 3430   155]
 #  [  285 51210]]
 
-print(classification_report(classes_teste, previsoes))
+print(f'\tRelatório:\n{classification_report(classes_teste, previsoes)}')
 #               precision    recall  f1-score   support
 #
 #      ANORMAL       0.92      0.96      0.94      3585
@@ -141,9 +150,10 @@ print(classification_report(classes_teste, previsoes))
 #%%
 """ Neural Network Classifier """
 from sklearn.neural_network import MLPClassifier # Multi Layer Perseptron
+print('Treinando o algorimto Neural Network Classifier')
 # n_hidden_layer_sizes = (n_entradas + n_saida) / 2
 # n_hidden_layer_sizes = (51 + 1) / 2 = 26
-neural_network_classifier = MLPClassifier(max_iter=200, verbose=True,
+neural_network_classifier = MLPClassifier(max_iter=200, verbose=False,
                                           tol=0.0001, solver='adam',
                                           activation='relu', hidden_layer_sizes=(26, 26))
 neural_network_classifier.fit(previsores_treino, classes_treino)
@@ -151,14 +161,14 @@ previsoes = neural_network_classifier.predict(previsores_teste)
 # Iteration 161, loss = 0.00735715
 # Training loss did not improve more than tol=0.000100 for 10 consecutive epochs. Stopping.
 
-print(accuracy_score(classes_teste, previsoes))
+print(f'\tAcuracia: {accuracy_score(classes_teste, previsoes)}')
 # 0.9912490922294844
 
-print(confusion_matrix(classes_teste, previsoes))
+print(f'\tMatriz de confusão:\n {confusion_matrix(classes_teste, previsoes)}')
 # [[ 3383   202]
 #  [  280 51215]]
 
-print(classification_report(classes_teste, previsoes))
+print(f'\tRelatório:\n{classification_report(classes_teste, previsoes)}')
 #               precision    recall  f1-score   support
 # 
 #      ANORMAL       0.92      0.94      0.93      3585
@@ -170,5 +180,6 @@ print(classification_report(classes_teste, previsoes))
 
 #%%
 
+print('Salvando os modelos treinados no arquivo data_classifiers.pkl')
 with open('data_classifiers.pkl', mode='wb') as file:
     pickle.dump([tree_classifier, naive_classifier, knn_classifier, logistic_classifier, svc_classifier, neural_network_classifier], file)
